@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagen que Rebota con Destellos</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Evita el scroll */
+            background-color: #f0f0f0; /* Color de fondo */
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            height: 100vh; /* Altura completa de la ventana */
+            position: relative; /* Para posicionar el círculo */
+        }
+        #circulo {
+            position: absolute;
+            width: 400px; /* Diámetro del círculo */
+            height: 400px; /* Diámetro del círculo */
+            background-image: url('circulo.gif'); /* Imagen de fondo del círculo */
+            background-size: cover; /* Asegura que la imagen cubra el círculo */
+            animation: girar 10s linear infinite; /* Animación de giro */
+            z-index: 1; /* Asegura que el círculo esté detrás de la imagen */
+            border-radius: 50%; /* Hace el círculo */
+            opacity: 0.7; /* Opacidad del círculo */
+        }
+        @keyframes girar {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        #imagen {
+            position: absolute;
+            width: 250px; /* Ancho de la imagen más grande */
+            height: auto;
+            animation: rebote 2s infinite, destellar 1s infinite; /* Animación de rebote y destellos */
+            z-index: 2; /* Asegura que la imagen esté encima del círculo */
+        }
+        @keyframes rebote {
+            0%, 100% {
+                transform: translateY(0); /* Posición inicial */
+            }
+            50% {
+                transform: translateY(-100px); /* Altura del rebote */
+            }
+        }
+        @keyframes destellar {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5; /* Opacidad parcial para el destello */
+            }
+        }
+        #titulo {
+            position: absolute;
+            bottom: 60px; /* Ajustado para estar un poco más arriba */
+            left: 50%; /* Centra horizontalmente */
+            transform: translate(-50%, 0); /* Ajuste para centrar el texto */
+            font-size: 48px; /* Tamaño de fuente aumentado */
+            color: yellow; /* Color inicial */
+            white-space: nowrap; /* Evita el salto de línea */
+            animation: titilar 0.5s infinite alternate, destellar 1s infinite; /* Animación de titilación y destellos */
+        }
+        @keyframes titilar {
+            0% {
+                color: rgb(12, 193, 99); /* Color inicial */
+            }
+            50% {
+                color: red; /* Color intermedio */
+            }
+            100% {
+                color: blue; /* Color final */
+            }
+        }
+        @keyframes disolverse {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.1);
+                transform: translate(-70%, 0); /* Ajuste para centrar el texto */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="circulo"></div>
+    <img id="imagen" src="images/bibo.png" alt="Imagen que Rebota">
+    <div id="titulo">MUNDO STEAM A TRAVÉS DE LA BEE BOT</div>
+    <script>
+        const imagen = document.getElementById('imagen');
+        const titulo = document.getElementById('titulo');
+
+        setTimeout(() => {
+            imagen.style.animation = 'disolverse 2s forwards'; // Disolver la imagen
+            titulo.style.animation = 'disolverse 2s forwards'; // Disolver el texto
+            setTimeout(() => {
+                window.location.href = 'index.html'; // Redirigir a otra página
+            }, 2000); // Esperar a que termine la disolución
+        }, 3000); // Después de 3 segundos
+    </script>
+</body>
+</html>
+
